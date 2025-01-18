@@ -53,8 +53,10 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
+
+
 app.post("/template", async (req, res) => {
-  console.log("response.body: ", req.body);
+  // console.log("response.body: ", req.body);
   const name = req.body.company;
 
   if (!name) {
@@ -103,11 +105,75 @@ app.post("/template", async (req, res) => {
   //   });
   //   return;
   resultss = result.response.text();
+  console.log("resultss: ", resultss);
   return resultss;
 
   });
+    app.post("/basic", async (req, res) => {
+      console.log("response.body: ", req.body);
+      const prompt = req.body.prompt;
+    
+      if (!prompt) {
+        res.status(400).send("Prompt is required.");
+        return;
+      }
+    
+      console.log("Prompt of User: ", prompt);
+    
+      const result = await model.generateContent({
+        contents: [
+          {
+            role: "user",
+            parts: [
+              {
+                text: `Context:\n\nI need a template that includes the following fields: categories and brand name list of competitors. I will provide the name for the brand, people, or product.\n this is templete in which i need to fill the details of the company but in short only\n\n${getSystemPrompt}\n
+                \n\nPrompt: ${prompt}`,
+              },
+            ],
+          },
+        ],
+        generationConfig: {
+          maxOutputTokens: 2000,
+          temperature: 0.1,
+        },
+      });
+    
+      console.log("result.response.text(): ", result.response.text());
+    
+      const answer = result.response.text().trim();  // Trim any excess whitespace or newline characters
+    
+      console.log("answer after trim: ", answer); // To verify the trimmed response
+      console.log("Result: ", result.response.text());
+      
+      return result.response.text();
 
+    
+      });
   
+app.post("/competitors", async (req, res) => {
+  const analyzeCompetitors = req.body.youBrand;
+  const namesList = await model.generateContent({
+    contents: [
+      {
+        role: "user",
+        parts: [
+          {
+            text: `Context:\n\n I am providing you the company that of which I want the list of all competitor. Altest 4 name , with basic details of the companies digital matrix and advertement good point
+            \n\nPrompt: ${analyzeCompetitors}`,
+          },
+        ],
+      },
+    ],
+    generationConfig: {
+      maxOutputTokens: 2000,
+      temperature: 0.1,
+    },
+  });
+
+  console.log("namesList: ", namesList);
+  res.json(namesList);
+});
+
 app.post("/trands", async (req, res) => {
   const analyzeForAds = async (req, res) => {
     try {

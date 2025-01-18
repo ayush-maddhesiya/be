@@ -11,185 +11,31 @@ export const getSystemPrompt = `
   "market_share": "",
   "campaign_performance": {
     "click_through_rate": {
-      "brand": {
-        "value": "",
-        "unit": "%",
-        "insights": "Low CTR may indicate a need for more compelling ad creatives or targeting adjustments."
-      },
-      "competitors": [
-        {
-          "competitor_name": "",
-          "value": "",
-          "unit": "%",
-          "insights": "Competitor has a higher CTR, suggesting more effective creatives or targeting."
-        }
-      ]
+      "brand": { "value": "", "unit": "%", "insights": "Low CTR indicates a need for better ad creatives or targeting." },
+      "competitors": [{ "name": "", "value": "", "unit": "%", "insights": "Higher CTR suggests better targeting or creatives." }]
     },
     "conversion_rate": {
-      "brand": {
-        "value": "",
-        "unit": "%",
-        "insights": "A lower conversion rate suggests potential issues in landing page experience or offer mismatch."
-      },
-      "competitors": [
-        {
-          "competitor_name": "",
-          "value": "",
-          "unit": "%",
-          "insights": "Competitor has a higher conversion rate, possibly due to optimized landing pages or stronger offers."
-        }
-      ]
+      "brand": { "value": "", "unit": "%", "insights": "Low conversion rate points to landing page issues." },
+      "competitors": [{ "name": "", "value": "", "unit": "%", "insights": "Higher rate suggests optimized landing pages." }]
     },
     "cost_per_click": {
-      "brand": {
-        "value": "",
-        "unit": "$",
-        "insights": "A high CPC might indicate inefficient targeting, bidding strategy, or competition for keywords."
-      },
-      "competitors": [
-        {
-          "competitor_name": "",
-          "value": "",
-          "unit": "$",
-          "insights": "Competitor has lower CPC, suggesting better ad efficiency or more refined targeting."
-        }
-      ]
-    },
-    "cost_per_acquisition": {
-      "brand": {
-        "value": "",
-        "unit": "$",
-        "insights": "High CPA can be a result of low conversion rates or ineffective ad targeting. Review customer journey."
-      },
-      "competitors": [
-        {
-          "competitor_name": "",
-          "value": "",
-          "unit": "$",
-          "insights": "Competitor has lower CPA, indicating better optimization of ad spend or more efficient targeting."
-        }
-      ]
+      "brand": { "value": "", "unit": "$", "insights": "High CPC reflects inefficient targeting or bidding." },
+      "competitors": [{ "name": "", "value": "", "unit": "$", "insights": "Lower CPC implies better efficiency." }]
     },
     "return_on_ad_spend": {
-      "brand": {
-        "value": "",
-        "unit": "X",
-        "insights": "Low ROAS suggests inefficiency in ad spend, possibly due to poor targeting, creatives, or offers."
-      },
-      "competitors": [
-        {
-          "competitor_name": "",
-          "value": "",
-          "unit": "X",
-          "insights": "Competitor achieves higher ROAS, suggesting more effective ad spend allocation or better campaign strategies."
-        }
-      ]
-    },
-    "impressions": {
-      "brand": {
-        "value": "",
-        "unit": "impressions",
-        "insights": "Impressions are high but may not be translating into conversions. Focus on improving relevance and engagement."
-      },
-      "competitors": [
-        {
-          "competitor_name": "",
-          "value": "",
-          "unit": "impressions",
-          "insights": "Competitor's high impressions could indicate wider reach or more engaging ads."
-        }
-      ]
-    },
-    "ad_engagement_rate": {
-      "brand": {
-        "value": "",
-        "unit": "%",
-        "insights": "Low engagement could point to irrelevant ad creatives or improper targeting. Consider A/B testing."
-      },
-      "competitors": [
-        {
-          "competitor_name": "",
-          "value": "",
-          "unit": "%",
-          "insights": "Competitor's higher engagement rate indicates more appealing or relevant ad content."
-        }
-      ]
+      "brand": { "value": "", "unit": "X", "insights": "Low ROAS signals inefficient ad spend." },
+      "competitors": [{ "name": "", "value": "", "unit": "X", "insights": "Higher ROAS shows better strategies." }]
     },
     "lead_generation": {
-      "brand": {
-        "value": "",
-        "unit": "leads",
-        "insights": "Low lead generation may require optimizing your lead magnets, forms, or landing pages."
-      },
-      "competitors": [
-        {
-          "competitor_name": "",
-          "value": "",
-          "unit": "leads",
-          "insights": "Competitor is generating more leads, suggesting a more attractive offer or smoother conversion process."
-        }
-      ]
+      "brand": { "value": "", "unit": "leads", "insights": "Low leads require better offers or forms." },
+      "competitors": [{ "name": "", "value": "", "unit": "leads", "insights": "Higher leads suggest smoother processes." }]
     },
     "bounce_rate": {
-      "brand": {
-        "value": "",
-        "unit": "%",
-        "insights": "High bounce rate suggests poor landing page relevance or performance. Optimize the user experience."
-      },
-      "competitors": [
-        {
-          "competitor_name": "",
-          "value": "",
-          "unit": "%",
-          "insights": "Competitor's lower bounce rate points to a better user experience or a more aligned offer."
-        }
-      ]
-    },
-    "customer_lifetime_value": {
-      "brand": {
-        "value": "",
-        "unit": "$",
-        "insights": "Low CLV may indicate a lack of customer retention strategies. Focus on repeat business and retention offers."
-      },
-      "competitors": [
-        {
-          "competitor_name": "",
-          "value": "",
-          "unit": "$",
-          "insights": "Competitor's higher CLV suggests better customer retention strategies and loyalty programs."
-        }
-      ]
-    },
-    "frequency": {
-      "brand": {
-        "value": "",
-        "unit": "times",
-        "insights": "Frequency is too high or too low? Adjust to avoid ad fatigue or underexposure."
-      },
-      "competitors": [
-        {
-          "competitor_name": "",
-          "value": "",
-          "unit": "times",
-          "insights": "Competitor's optimal frequency suggests they have struck the right balance to maintain brand visibility."
-        }
-      ]
-    },
-    "view_through_rate": {
-      "brand": {
-        "value": "",
-        "unit": "%",
-        "insights": "Low VTR could suggest that your ads are being skipped or not relevant enough to the audience."
-      },
-      "competitors": [
-        {
-          "competitor_name": "",
-          "value": "",
-          "unit": "%",
-          "insights": "Competitor's higher VTR could indicate their ads resonate better with the target audience or have more engaging content."
-        }
-      ]
+      "brand": { "value": "", "unit": "%", "insights": "High bounce rate reflects poor user experience." },
+      "competitors": [{ "name": "", "value": "", "unit": "%", "insights": "Lower rate indicates better alignment." }]
     }
   }
+  "Pain Point":"**5 pain points with Statistics**",
+  "Suggestion to improve":"**altest five**",
 }
 `
