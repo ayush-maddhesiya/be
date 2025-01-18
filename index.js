@@ -6,6 +6,7 @@ import { basePrompt as reactBasePrompt } from "./defaults/react.js";
 import { basePrompt as nodeBasePrompt } from "./defaults/node.js";
 import fs from "fs";
 import cors from "cors";
+import googleTrends from "google-trends-api";
 
 const app = express();
 dotenv.config({
@@ -48,6 +49,10 @@ const context = "For all designs I ask you to make, have them be beautiful, not 
 // });
 
 var resultss = null;
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
+
 app.post("/template", async (req, res) => {
   console.log("response.body: ", req.body);
   const name = req.body.company;
@@ -102,7 +107,71 @@ app.post("/template", async (req, res) => {
 
   });
 
+  
+app.post("/trands", async (req, res) => {
+  const analyzeForAds = async (req, res) => {
+    try {
+      const { keyword, startDate, endDate, geo } = req.query;
+  
+      // Validate input
+      if (!keyword) {
+        return res.status(400).json({ error: 'Keyword is required.' });
+      }
+  
+      // Configure the parameters for Google Trends API
+      const options = {
+        keyword,
+        startTime: startDate ? new Date(startDate) : new Date(Date.now() - 30 * 24 * 60 * 60 * 1000), // Default to last 30 days
+        endTime: endDate ? new Date(endDate) : new Date(),
+        geo: geo || 'US', // Default to US
+      };
+  
+      // Fetch interest over time
+      const trendsData = await googleTrends.interestOverTime(options);
+      const parsedTrends = JSON.parse(trendsData);
+  
+      // Process interest over time
+      const timeInsights = parsedTrends.default.timelineData.map((dataPoint) => ({
+        time: new Date(dataPoint.time * 1000),
+        value: dataPoint.value[0],
+      }));
+  
+      // Calculate peak interest time
+      const peakTime = timeInsights.reduce((max, current) => (current.value > max.value ? current : max), timeInsights[0]);
+  
+      // Fetch related queries
+      const relatedData = await googleTrends.relatedQueries({ keyword, geo: geo || 'US' });
+      const parsedRelated = JSON.parse(relatedData);
+  
+      const relatedQueries = parsedRelated.default.rankedList[0].rankedKeyword.map((item) => ({
+        query: item.query,
+        value: item.value,
+      }));
+  
+      // Fetch trending categories
+      const trendingCategories = await googleTrends.autoComplete({ keyword });
+      const parsedCategories = JSON.parse(trendingCategories);
+  
+      const suggestedCategories = parsedCategories.default.topics.map((topic) => topic.title);
+  
+      // Response with insights for ads
+      res.status(200).json({
+        keyword,
+        insights: {
+          timeInsights,
+          peakInterestTime: peakTime,
+          relatedQueries,
+          suggestedCategories,
+        },
+      });
+    } catch (error) {
+      console.error('Error analyzing Google Trends data for ads:', error);
+      res.status(500).json({ error: 'An error occurred while analyzing Google Trends data.' });
+    }
 
+    return analyzeForAds;
+  };
+});
 app.post("/generate", async (req, res) => {
   const data = resultss.json();
 
